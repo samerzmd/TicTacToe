@@ -1,7 +1,7 @@
 package com.doski.moski.tictactoe;
 
 import android.content.Context;
-import android.util.Log;
+
 
 import java.util.Arrays;
 
@@ -63,9 +63,7 @@ public class Game {
     }
 
     public Boolean play(int cellIndex) {
-        Log.i("statistics", new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         // Short Circuit if the cell has already been played
         if (isPositionPlayed(cellIndex)) {
             return false;
@@ -75,7 +73,7 @@ public class Game {
         state[cellIndex] = currentPlayer;
 
         calculateGameState();
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 
         return true;
     }
@@ -84,24 +82,19 @@ public class Game {
     // Toggle the play turn.
     //
     public void switchTurn() {
-        Log.i("statistics", new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
-
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         if (currentPlayer == 0) {
             setCurrentPlayer(1);
         } else {
             setCurrentPlayer(0);
         }
 
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
     }
 
 
     public Boolean hasWon() {
-        Log.i("statistics", new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         for (int[] winningPosition : winningPositions) {
 
             int[] position = {
@@ -111,18 +104,17 @@ public class Game {
             };
 
             if (allTheSame(position) && state[winningPosition[0]] != -1) {
+                Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
                 return true;
             }
         }
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 
         return false;
     }
 
     public String hint() {
-        Log.i("statistics", new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         String msg = "";
         switch (gameState) {
             case INITIAL:
@@ -139,43 +131,39 @@ public class Game {
                 }
 
         }
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
         return msg;
     }
 
     public String currentPlayerName() {
-        Log.i("statistics", new Object() {
-        }.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         if (getCurrentPlayer() == 0) {
-            Log.i("statistics", String.valueOf(System.nanoTime()));
+            Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
             return mContext.getString(R.string.player1Name);
         } else {
-            Log.i("statistics", String.valueOf(System.nanoTime()));
+            Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
             return mContext.getString(R.string.player2Name);
         }
     }
 
     public String getScore(int player) {
-        Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         int scoreForPlayer = score[player];
         if (scoreForPlayer == 0) {
-            Log.i("statistics", String.valueOf(System.nanoTime()));
+            Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
             return mContext.getString(R.string.noScore);
         } else {
-            Log.i("statistics", String.valueOf(System.nanoTime()));
+            Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
             return Integer.toString(scoreForPlayer);
         }
     }
 
     public void reset() {
-        Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         setCurrentPlayer(0);
         Arrays.fill(state, -1);
         calculateGameState();
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
     }
 
 
@@ -184,8 +172,11 @@ public class Game {
     // A Game is running if any of the cells has already been played.
     //
     private Boolean hasStarted() {
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         // If they are all the same, and anyone of them is -1, then the game has not started.
-        return !(allTheSame(state) && state[0] == -1);
+        boolean b=!(allTheSame(state) && state[0] == -1);
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
+        return b;
     }
 
     //
@@ -193,18 +184,20 @@ public class Game {
     // The game is usually ended when all the cells have been played.
     //
     private Boolean hasEnded() {
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         for (int s : state) {
             if (s == -1) {
+                Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
                 return false;
             }
         }
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
         return true;
     }
 
 
     private Boolean allTheSame(int[] array) {
-        Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         if (array.length == 0) {
             return true;
         } else {
@@ -215,14 +208,13 @@ public class Game {
                     return false;
                 }
             }
-            Log.i("statistics", String.valueOf(System.nanoTime()));
+            Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
             return true;
         }
     }
 
     private void calculateGameState() {
-        Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         if (!hasStarted()) {
             gameState = GameState.INITIAL;
         } else if (hasEnded() || hasWon()) {
@@ -231,16 +223,15 @@ public class Game {
         } else {
             gameState = GameState.PLAYING;
         }
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
     }
 
     private void calculateScore() {
-        Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
         if (hasWon()) {
             int current = score[getCurrentPlayer()];
             score[getCurrentPlayer()] = current + 1;
         }
-        Log.i("statistics", String.valueOf(System.nanoTime()));
+        Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
     }
 }

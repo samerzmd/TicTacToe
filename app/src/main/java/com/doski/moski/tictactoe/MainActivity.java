@@ -2,7 +2,6 @@ package com.doski.moski.tictactoe;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -23,8 +22,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
 		setContentView(R.layout.activity_main);
 
 		game = new Game(this);
@@ -36,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
 		player1Score = (TextView) findViewById(R.id.player1Score);
 		player2Score = (TextView) findViewById(R.id.player2Score);
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
+
 	}
 
 	public void play(View view){
-		Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
 
 		AnimatedSvgView currentView = (AnimatedSvgView) view;
 
@@ -63,13 +62,12 @@ public class MainActivity extends AppCompatActivity {
 			hint.setText(game.hint());
 			updateScore();
 		}
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 	}
 
 	public void resetGame(View view){
 		// Reset the game State and currentPlayer
-		Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
 		game.reset();
 		updateCurrentPlayerSelector();
 
@@ -82,12 +80,11 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		hint.setText(game.hint());
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 	}
 
 	private void updateCurrentPlayerSelector(){
-		Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
 		if(game.getCurrentPlayer() == 0){
 			player1Selector.setBackgroundColor(getResources().getColor(R.color.currentPlayer));
 			player2Selector.setBackgroundColor(getResources().getColor(R.color.otherPlayer));
@@ -95,20 +92,18 @@ public class MainActivity extends AppCompatActivity {
 			player1Selector.setBackgroundColor(getResources().getColor(R.color.otherPlayer));
 			player2Selector.setBackgroundColor(getResources().getColor(R.color.currentPlayer));
 		}
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 	}
 
 	private void updateScore(){
-		Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
 		player1Score.setText(game.getScore(0));
 		player2Score.setText(game.getScore(1));
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 	}
 
 	private void setSvg(AnimatedSvgView svgView, SVG svg) {
-		Log.i("statistics",new Object(){}.getClass().getEnclosingMethod().getName());
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " Start "+ String.valueOf(System.nanoTime()));
 		svgView.setGlyphStrings(svg.glyphs);
 		svgView.setFillColors(svg.colors);
 		svgView.setViewportSize(svg.width, svg.height);
@@ -116,6 +111,6 @@ public class MainActivity extends AppCompatActivity {
 		svgView.setTraceColors(svg.colors);
 		svgView.rebuildGlyphData();
 		svgView.start();
-		Log.i("statistics", String.valueOf(System.nanoTime()));
+		Log.i(new Object(){}.getClass().getEnclosingMethod().getName(), " End "+ String.valueOf(System.nanoTime()));
 	}
 }
